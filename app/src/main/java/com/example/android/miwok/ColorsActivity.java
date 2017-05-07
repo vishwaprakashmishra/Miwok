@@ -30,16 +30,17 @@ public class ColorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_numbers);
 
         ArrayList<Word> words = new ArrayList<Word>();
-        words.add(new Word("red","wetetti"));
+        words.add(new Word("red","weṭeṭṭi"));
         words.add(new Word("green","chokokki"));
-        words.add(new Word("brown","takaakki"));
-        words.add(new Word("gray","topoppi"));
+        words.add(new Word("brown","ṭakaakki"));
+        words.add(new Word("gray","ṭopoppi"));
         words.add(new Word("black","kululli"));
         words.add(new Word("white","kelelli"));
-        words.add(new Word("dusty yellow", "topiisa"));
-        words.add(new Word("mustard yellow", "chiwiita"));
+        words.add(new Word("dusty yellow", "ṭopiisә"));
+        words.add(new Word("mustard yellow", "chiwiiṭә"));
 
-//        ArrayAdapter<Word> itemsAdapter = new ArrayAdapter<Word>(this, android.R.layout.simple_list_item_1, words);
+//        ArrayAdapter<Word> itemsAdapter = new
+// ArrayAdapter<Word>(this, android.R.layout.simple_list_item_1, words);
         WordAdapter adapter = new WordAdapter(this, words);
 
         ListView listView = (ListView) findViewById(R.id.list);
