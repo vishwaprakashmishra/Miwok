@@ -35,7 +35,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         if(listItemView == null)
         {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.mina, parent, false
+                    R.layout.list_item, parent, false
             );
         }
         // Get the {@link word} object at this position in the list
@@ -47,7 +47,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // set the Text on the nameTextView
         nameTextView.setText(currentWord.getDefaultTranslation());
 
-        // Find the TextView in the mina with layout id of miwok_text_view
+        // Find the TextView in the list_item with layout id of miwok_text_view
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
         //Get the miwok translation from the current word object
         // set this text on the number TextView
