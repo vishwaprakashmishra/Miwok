@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  */
 
 public class WordAdapter extends ArrayAdapter<Word> {
+    private int mColorResourceId ;
     /**
      * Provides a view for an AdapterView (ListView , Gridview, etc.)
      *
@@ -42,7 +44,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
         // Get the {@link word} object at this position in the list
         Word currentWord = getItem(position);
-
+        // Getting the parent of TextView which contain texts
+        View textContainer = (View) listItemView.findViewById(R.id.text_container);
+        textContainer.setBackgroundColor(mColorResourceId);
         // Find the TextView in the list_item.xml layout with the ID
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
         // get the default translation from the current word object and
@@ -59,8 +63,13 @@ public class WordAdapter extends ArrayAdapter<Word> {
         ImageView miwokImage = (ImageView) listItemView.findViewById(R.id.image);
         // Get the image from the current word object
         // set this if it is not zero
-        if(currentWord.getmImageResourceId() > 0) {
+        if(currentWord.hasImage()) {
             miwokImage.setImageResource(currentWord.getmImageResourceId());
+            // Make the View visible
+            miwokImage.setVisibility(View.VISIBLE);
+        } else {
+            // otherwise hide the iMageView (set visibility to GONE)
+            miwokImage.setVisibility(View.GONE);
         }
         // Return the whole list item layout (containging 2 TextView)
         // so that it can be shown in the ListView
@@ -69,18 +78,16 @@ public class WordAdapter extends ArrayAdapter<Word> {
     }
 
     /**
-     * This is our own custom constructor (it doesn't mirror a superclass constructor).
-     * The context is used to inflate the layout file, and the list is the data we want
-     * to populate into the lists.
-     *
-     * @param context The current context, Used to inflate the layout file.
-     * @param word  A list of ArrayList<Word> object to display in a list
+     * constructor for providing extra color
+     * @param context current context , used to inflate the layout file.
+     * @param word A List of ArrayList<Word> object to display in a list
+     * @param colorResourceId A color resource id for list_item
      */
-    WordAdapter(Activity context, ArrayList<Word> word){
-        // Here , we ititialize the ArrayAdapter's internal storage for the context and the list
-        // the second argument is used when the ArrayAdapter is  populating a single TextView.
-        // Because this is a custom adapter for two TextView , the adapter is
-        // going to use this second argument, so it can be any value. Here , we used 0.
-        super(context, 0, word);
+    WordAdapter(Activity context, ArrayList<Word> word, int colorResourceId )
+    {
+        super(context, 0 , word);
+        // assigning the color resource id as colorResourceId
+        mColorResourceId = colorResourceId;
+
     }
 }
