@@ -1,12 +1,14 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -52,6 +54,14 @@ public class WordAdapter extends ArrayAdapter<Word> {
         //Get the miwok translation from the current word object
         // set this text on the number TextView
         miwokTextView.setText(currentWord.getMiwokTranslation());
+
+        // Find the TextView in the list_item with layout id of image
+        ImageView miwokImage = (ImageView) listItemView.findViewById(R.id.image);
+        // Get the image from the current word object
+        // set this if it is not zero
+        if(currentWord.getmImageResourceId() > 0) {
+            miwokImage.setImageResource(currentWord.getmImageResourceId());
+        }
         // Return the whole list item layout (containging 2 TextView)
         // so that it can be shown in the ListView
         return listItemView;
