@@ -1,7 +1,7 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
-import android.media.Image;
+import android.support.v4.content.ContextCompat;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,9 +43,6 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
         // Get the {@link word} object at this position in the list
         Word currentWord = getItem(position);
-        // Getting the parent of TextView which contain texts
-        View textContainer = (View) listItemView.findViewById(R.id.text_container);
-        textContainer.setBackgroundColor(mColorResourceId);
         // Find the TextView in the list_item.xml layout with the ID
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
         // get the default translation from the current word object and
@@ -71,6 +67,14 @@ public class WordAdapter extends ArrayAdapter<Word> {
             // otherwise hide the iMageView (set visibility to GONE)
             miwokImage.setVisibility(View.GONE);
         }
+
+        // Getting the parent of TextView which contain texts
+        View textContainer = (View) listItemView.findViewById(R.id.text_container);
+        // Find the color that the resource ID maps to
+        int color = ContextCompat.getColor(getContext(), mColorResourceId);
+        // Set the background color of the text container view
+        textContainer.setBackgroundColor(color);
+
         // Return the whole list item layout (containging 2 TextView)
         // so that it can be shown in the ListView
         return listItemView;
