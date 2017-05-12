@@ -15,13 +15,19 @@
  */
 package com.example.android.miwok;
 
+import android.app.Activity;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class PhrasesActivity extends AppCompatActivity {
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,7 @@ public class PhrasesActivity extends AppCompatActivity {
 
         setContentView(R.layout.word_list);
 
-        ArrayList<Word> words = new ArrayList<Word>();
+        final ArrayList<Word> words = new ArrayList<Word>();
         words.add(new Word("Where are you going?","minto wuksus"));
         words.add(new Word("What is your name?","tinnә oyaase'nә"));
         words.add(new Word("My name is...","oyaaset..."));
@@ -48,6 +54,15 @@ public class PhrasesActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
 
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(PhrasesActivity.this, words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
 
+                // playing the media
+                mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, words.get(position).getSoundResourceId());
+                mMediaPlayer.start();
+            }
+        });
     }
 }

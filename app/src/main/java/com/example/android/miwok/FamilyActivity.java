@@ -15,13 +15,20 @@
  */
 package com.example.android.miwok;
 
+import android.app.Activity;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class FamilyActivity extends AppCompatActivity {
+
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +36,7 @@ public class FamilyActivity extends AppCompatActivity {
 
         setContentView(R.layout.word_list);
 
-        ArrayList<Word> words = new ArrayList<Word>();
+        final ArrayList<Word> words = new ArrayList<Word>();
         words.add(new Word("father","dpd", R.drawable.family_father));
         words.add(new Word("mother","dta", R.drawable.family_mother));
         words.add(new Word("son","angsi", R.drawable.family_son));
@@ -47,6 +54,15 @@ public class FamilyActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
 
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(FamilyActivity.this, "List item clicked", Toast.LENGTH_SHORT);
+
+                mMediaPlayer = MediaPlayer.create(FamilyActivity.this, words.get(position).getSoundResourceId());
+                mMediaPlayer.start();
+            }
+        });
 
     }
 }

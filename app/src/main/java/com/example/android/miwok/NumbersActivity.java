@@ -37,17 +37,17 @@ public class NumbersActivity extends AppCompatActivity {
 
         setContentView(R.layout.word_list);
 
-        ArrayList<Word> words = new ArrayList<Word>();
-        words.add(new Word("one","lutti", R.drawable.number_one));
-        words.add(new Word("two","otiiko", R.drawable.number_two));
-        words.add(new Word("three","tolochosu", R.drawable.number_three));
-        words.add(new Word("four","oyylsa", R.drawable.number_four));
-        words.add(new Word("five","massokka", R.drawable.number_five));
-        words.add(new Word("six","temmokka", R.drawable.number_six));
-        words.add(new Word("seven", "kenekaku", R.drawable.number_seven));
-        words.add(new Word("eight", "kawenta", R.drawable.number_eight));
-        words.add(new Word("nine", "wo'e", R.drawable.number_nine));
-        words.add(new Word("ten", "na'aacha", R.drawable.number_ten));
+        final ArrayList<Word> words = new ArrayList<Word>();
+        words.add(new Word("one","lutti", R.drawable.number_one, R.raw.number_one));
+        words.add(new Word("two","otiiko", R.drawable.number_two, R.raw.number_two));
+        words.add(new Word("three","tolochosu", R.drawable.number_three, R.raw.number_three));
+        words.add(new Word("four","oyylsa", R.drawable.number_four, R.raw.number_four));
+        words.add(new Word("five","massokka", R.drawable.number_five, R.raw.number_five));
+        words.add(new Word("six","temmokka", R.drawable.number_six, R.raw.number_six));
+        words.add(new Word("seven", "kenekaku", R.drawable.number_seven, R.raw.number_seven));
+        words.add(new Word("eight", "kawenta", R.drawable.number_eight, R.raw.number_eight));
+        words.add(new Word("nine", "wo'e", R.drawable.number_nine, R.raw.number_nine));
+        words.add(new Word("ten", "na'aacha", R.drawable.number_ten, R.raw.number_ten));
 
 //        ArrayAdapter<Word> itemsAdapter = new ArrayAdapter<Word>(this, android.R.layout.simple_list_item_1, words);
         WordAdapter adapter = new WordAdapter(this, words, R.color.category_numbers);
@@ -59,8 +59,8 @@ public class NumbersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(NumbersActivity.this, "List item clicked", Toast.LENGTH_SHORT);
-                
-                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, R.raw.number_one);
+
+                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, words.get(position).getSoundResourceId());
                 mMediaPlayer.start();
             }
         });
