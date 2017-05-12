@@ -15,7 +15,6 @@
  */
 package com.example.android.miwok;
 
-import android.app.Activity;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +34,7 @@ public class ColorsActivity extends AppCompatActivity {
 
         setContentView(R.layout.word_list);
 
-        final ArrayList<Word> words = new ArrayList<Word>();
+        final ArrayList<Word> words = new ArrayList<>();
         words.add(new Word("red","weṭeṭṭi", R.drawable.color_red, R.raw.color_red));
         words.add(new Word("green","chokokki", R.drawable.color_green, R.raw.color_green));
         words.add(new Word("brown","ṭakaakki", R.drawable.color_brown, R.raw.color_brown));

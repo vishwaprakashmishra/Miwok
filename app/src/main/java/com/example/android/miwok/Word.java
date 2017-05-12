@@ -75,4 +75,37 @@ public class Word {
      * @return true if sound present else false
      */
     public boolean hasSound(){ return mSoundResourceId != NO_SOUND_PROVIDED; }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mDefaultTranslation='" + mDefaultTranslation + '\'' +
+                ", mMiwokTranslation='" + mMiwokTranslation + '\'' +
+                ", mImageResourceId=" + mImageResourceId +
+                ", mSoundResourceId=" + mSoundResourceId +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Word word = (Word) o;
+
+        if (mImageResourceId != word.mImageResourceId) return false;
+        if (mSoundResourceId != word.mSoundResourceId) return false;
+        if (!mDefaultTranslation.equals(word.mDefaultTranslation)) return false;
+        return mMiwokTranslation.equals(word.mMiwokTranslation);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mDefaultTranslation.hashCode();
+        result = 31 * result + mMiwokTranslation.hashCode();
+        result = 31 * result + mImageResourceId;
+        result = 31 * result + mSoundResourceId;
+        return result;
+    }
 }

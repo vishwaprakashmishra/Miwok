@@ -25,8 +25,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static android.os.Build.VERSION_CODES.N;
-
 public class NumbersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
@@ -37,7 +35,7 @@ public class NumbersActivity extends AppCompatActivity {
 
         setContentView(R.layout.word_list);
 
-        final ArrayList<Word> words = new ArrayList<Word>();
+        final ArrayList<Word> words = new ArrayList<>();
         words.add(new Word("one","lutti", R.drawable.number_one, R.raw.number_one));
         words.add(new Word("two","otiiko", R.drawable.number_two, R.raw.number_two));
         words.add(new Word("three","tolochosu", R.drawable.number_three, R.raw.number_three));

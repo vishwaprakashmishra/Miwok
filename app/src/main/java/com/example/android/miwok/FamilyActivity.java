@@ -15,7 +15,6 @@
  */
 package com.example.android.miwok;
 
-import android.app.Activity;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +35,7 @@ public class FamilyActivity extends AppCompatActivity {
 
         setContentView(R.layout.word_list);
 
-        final ArrayList<Word> words = new ArrayList<Word>();
+        final ArrayList<Word> words = new ArrayList<>();
         words.add(new Word("father","dpd", R.drawable.family_father, R.raw.family_father));
         words.add(new Word("mother","dta", R.drawable.family_mother, R.raw.family_mother));
         words.add(new Word("son","angsi", R.drawable.family_son, R.raw.family_son));
