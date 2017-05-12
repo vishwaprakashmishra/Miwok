@@ -14,28 +14,6 @@ public class Word {
     private static final int NO_IMAGE_PROVIDED = -1;
     private int mSoundResourceId = Word.NO_SOUND_PROVIDED;
     private static final int NO_SOUND_PROVIDED = -1;
-    /**
-     *
-     * @param defaultTranslation default translation of the miwok word
-     * @param miwokTranslation miwok word
-     */
-    public Word(String defaultTranslation, String miwokTranslation) {
-        mMiwokTranslation = miwokTranslation;
-        mDefaultTranslation = defaultTranslation;
-    }
-
-    /**
-     *
-     * @param defaultTranslation default translation of miwok word
-     * @param miwokTranslation miwok word
-     * @param imageResourceId image resource id
-     */
-    public Word(String defaultTranslation , String miwokTranslation, int imageResourceId )
-    {
-        mDefaultTranslation = defaultTranslation;
-        mMiwokTranslation = miwokTranslation ;
-        mImageResourceId = imageResourceId;
-    }
 
     /**
      * constructor for all the parameter
@@ -54,10 +32,10 @@ public class Word {
     /**
      * overloaded constructor for providing miwok, default and sound only careful of the syntax
      * @param defaultTranslation default translation
-     * @param soundResourceId sound resource id
      * @param miwokTranslation miwok word
+     * @param soundResourceId sound resource id
      */
-    public Word(String defaultTranslation  , int soundResourceId, String miwokTranslation)
+    public Word(String defaultTranslation, String miwokTranslation, int soundResourceId)
     {
         mMiwokTranslation = miwokTranslation;
         mDefaultTranslation = defaultTranslation;
