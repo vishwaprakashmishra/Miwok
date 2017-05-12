@@ -36,10 +36,31 @@ public class Word {
         mMiwokTranslation = miwokTranslation ;
         mImageResourceId = imageResourceId;
     }
+
+    /**
+     * constructor for all the parameter
+     * @param defaultTranslation default Translation value
+     * @param miwokTranslation miwok translation word/phrase
+     * @param imageResourceId image resource id  which is and integer URI
+     * @param soundResourceId sound Resource id which is URI for sound an integer
+     */
     public Word(String defaultTranslation, String miwokTranslation, int imageResourceId, int soundResourceId ){
         mMiwokTranslation = miwokTranslation;
         mDefaultTranslation = defaultTranslation;
         mImageResourceId = imageResourceId ;
+        mSoundResourceId = soundResourceId;
+    }
+
+    /**
+     * overloaded constructor for providing miwok, default and sound only careful of the syntax
+     * @param defaultTranslation default translation
+     * @param soundResourceId sound resource id
+     * @param miwokTranslation miwok word
+     */
+    public Word(String defaultTranslation  , int soundResourceId, String miwokTranslation)
+    {
+        mMiwokTranslation = miwokTranslation;
+        mDefaultTranslation = defaultTranslation;
         mSoundResourceId = soundResourceId;
     }
 
