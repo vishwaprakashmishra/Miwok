@@ -12,7 +12,8 @@ public class Word {
     // providing image resource id
     private int mImageResourceId = Word.NO_IMAGE_PROVIDED;
     private static final int NO_IMAGE_PROVIDED = -1;
-
+    private int mSoundResourceId = Word.NO_SOUND_PROVIDED;
+    private static final int NO_SOUND_PROVIDED = -1;
     /**
      *
      * @param defaultTranslation default translation of the miwok word
@@ -35,6 +36,12 @@ public class Word {
         mMiwokTranslation = miwokTranslation ;
         mImageResourceId = imageResourceId;
     }
+    public Word(String defaultTranslation, String miwokTranslation, int imageResourceId, int soundResourceId ){
+        mMiwokTranslation = miwokTranslation;
+        mDefaultTranslation = defaultTranslation;
+        mImageResourceId = imageResourceId ;
+        mSoundResourceId = soundResourceId;
+    }
 
     // getter function for getting default Translation '
     public String getDefaultTranslation() {
@@ -48,7 +55,12 @@ public class Word {
     }
     // getter method for getting image resource id
     public int getmImageResourceId() {
+
         return mImageResourceId;
+    }
+    // getter method for getting sound resource id
+    public int getSoundResourceId(){
+        return mSoundResourceId;
     }
 
     /**
@@ -58,4 +70,10 @@ public class Word {
     public boolean hasImage() {
         return mImageResourceId != NO_IMAGE_PROVIDED;
     }
+
+    /**
+     * returns true if there is a sound resource id
+     * @return true if sound present else false
+     */
+    public boolean hasSound(){ return mSoundResourceId != NO_SOUND_PROVIDED; }
 }

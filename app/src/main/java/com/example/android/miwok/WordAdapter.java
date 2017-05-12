@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,12 +43,12 @@ public class WordAdapter extends ArrayAdapter<Word> {
             );
         }
         // Get the {@link word} object at this position in the list
-        Word currentWord = getItem(position);
+        final Word currentWord = getItem(position);
         // Find the TextView in the list_item.xml layout with the ID
-        TextView nameTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
+        TextView defaultTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
         // get the default translation from the current word object and
         // set the Text on the nameTextView
-        nameTextView.setText(currentWord.getDefaultTranslation());
+        defaultTextView.setText(currentWord.getDefaultTranslation());
 
         // Find the TextView in the list_item with layout id of miwok_text_view
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
@@ -67,6 +68,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
             // otherwise hide the iMageView (set visibility to GONE)
             miwokImage.setVisibility(View.GONE);
         }
+        /* adding color to the View containing the text */
 
         // Getting the parent of TextView which contain texts
         View textContainer = (View) listItemView.findViewById(R.id.text_container);
@@ -74,7 +76,6 @@ public class WordAdapter extends ArrayAdapter<Word> {
         int color = ContextCompat.getColor(getContext(), mColorResourceId);
         // Set the background color of the text container view
         textContainer.setBackgroundColor(color);
-
         // Return the whole list item layout (containging 2 TextView)
         // so that it can be shown in the ListView
         return listItemView;
