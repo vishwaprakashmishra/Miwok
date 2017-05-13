@@ -37,6 +37,13 @@ public class PhrasesActivity extends AppCompatActivity {
             releaseMediaPlayer();
         }
     };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

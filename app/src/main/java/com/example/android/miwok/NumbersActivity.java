@@ -44,6 +44,13 @@ public class NumbersActivity extends AppCompatActivity {
             };
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        mMediaPlayer.stop();
+        releaseMediaPlayer();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -61,7 +68,8 @@ public class NumbersActivity extends AppCompatActivity {
         words.add(new Word("nine", "wo'e", R.drawable.number_nine, R.raw.number_nine));
         words.add(new Word("ten", "na'aacha", R.drawable.number_ten, R.raw.number_ten));
 
-//        ArrayAdapter<Word> itemsAdapter = new ArrayAdapter<Word>(this, android.R.layout.simple_list_item_1, words);
+//        ArrayAdapter<Word> itemsAdapter = new ArrayAdapter<Word>(this, android.R.layout.
+// simple_list_item_1, words);
         WordAdapter adapter = new WordAdapter(this, words, R.color.category_numbers);
 
         ListView listView = (ListView) findViewById(R.id.list);
@@ -70,7 +78,8 @@ public class NumbersActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(NumbersActivity.this, words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(NumbersActivity.this, words.get(position).getMiwokTranslation(),
+                        Toast.LENGTH_SHORT).show();
                 // Release the media player if t=it currently exists Because we
                 // are about to play a different sound file
                 releaseMediaPlayer();

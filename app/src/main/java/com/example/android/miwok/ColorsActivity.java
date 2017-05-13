@@ -37,6 +37,14 @@ public class ColorsActivity extends AppCompatActivity {
                     releaseMediaPlayer();
                 }
             };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mMediaPlayer.stop();
+        releaseMediaPlayer();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
