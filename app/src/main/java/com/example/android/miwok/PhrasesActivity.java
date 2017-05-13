@@ -28,6 +28,15 @@ import java.util.ArrayList;
 public class PhrasesActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
 
+    private MediaPlayer.OnCompletionListener mCompletionListener
+            = new MediaPlayer.OnCompletionListener(){
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer){
+            // Now that the sound file has finished playing release the media player
+            // resource
+            releaseMediaPlayer();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +66,25 @@ public class PhrasesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(PhrasesActivity.this, words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
-
+                // releasing the previous media attached
+                releaseMediaPlayer();
                 // playing the media
                 mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, words.get(position).getSoundResourceId());
                 mMediaPlayer.start();
             }
         });
+    }
+    private void releaseMediaPlayer(){
+        // If the media player is not null, then it may be currently playing a sound
+        if ( mMediaPlayer != null){
+            // Regardless at the current state of the media player ,
+            // release tts resources
+            // because no longer need it
+            mMediaPlayer.release();
+            // set the media player back to null for our code , We've detected that
+            // setting the media player in null is an easy way to sell that the media
+            // player is not configured to play an audio file at the moment
+            mMediaPlayer  = null;
+        }
     }
 }
