@@ -29,6 +29,20 @@ public class NumbersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
+    /**
+     * This listener gets triggered when the {@link MediaPlayer} has
+     * completed playing teh audio file.
+     */
+    private MediaPlayer.OnCompletionListener mCompletionListener = new
+            MediaPlayer.OnCompletionListener(){
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer){
+                    // Now that the sound file has finished playing, releasethe media
+                    // player resources
+                    releaseMediaPlayer();
+                }
+            };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +71,18 @@ public class NumbersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(NumbersActivity.this, words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
-
-                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, words.get(position).getSoundResourceId());
+                // Release the media player if t=it currently exists Because we
+                // are about to play a different sound file
+                releaseMediaPlayer();
+                // Get the {@link word} object at the given position the user
+                // clicked on
+                Word word = words.get(position);
+                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getSoundResourceId());
+                // starting the media player with new sound file
                 mMediaPlayer.start();
+                // setup a listener on the media player, so that we can stop and
+                // release the media player once the sound has finished playing.
+                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
 
