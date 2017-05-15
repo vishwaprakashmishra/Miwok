@@ -128,13 +128,6 @@ public class ColorsActivity extends AppCompatActivity {
                     // playing
                     mMediaPlayer.setOnCompletionListener(mCompletionListener);
                 }
-                mMediaPlayer = MediaPlayer.create(ColorsActivity.this, word.getSoundResourceId());
-                // statr te adio file
-                mMediaPlayer.start();
-                // Setup a listener on the media player, so that we can stop and
-                // release the
-                //media player once sound has finished playing
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
     }

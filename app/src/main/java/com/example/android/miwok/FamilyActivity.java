@@ -15,6 +15,7 @@
  */
 package com.example.android.miwok;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,28 @@ import java.util.ArrayList;
 public class FamilyActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
+    private AudioManager mAudioManager;
+
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener
+            = new AudioManager.OnAudioFocusChangeListener(){
+        @Override
+        public void onAudioFocusChange(int focusChange){
+            if(focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                    focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK){
+                // treat both case  as same because our sound file is small
+                mMediaPlayer.pause();
+                mMediaPlayer.seekTo(0);
+            } else if (focusChange  == AudioManager.AUDIOFOCUS_GAIN) {
+                // The AUDIOFOCUS_GAIN case means we have regained focus and can
+                // resume playback
+                mMediaPlayer.start();
+            } else if ( focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                // the AUDIOFOCUS_LOSS case means we've lost audio focus and
+                // stop playback and clean up resources
+                releaseMediaPlayer();
+            }
+        }
+    };
 
     private MediaPlayer.OnCompletionListener mCompletionListener
             = new MediaPlayer.OnCompletionListener(){
