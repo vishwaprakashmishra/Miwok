@@ -17,9 +17,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/category_numbers"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp">
+        android:background="@color/category_numbers">
 
         <LinearLayout
             android:id="@+id/text_container"
