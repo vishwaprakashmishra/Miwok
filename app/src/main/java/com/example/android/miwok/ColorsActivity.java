@@ -70,6 +70,12 @@ public class ColorsActivity extends AppCompatActivity {
                 }
             };
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +107,8 @@ public class ColorsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ColorsActivity.this, words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ColorsActivity.this, words.get(position).getMiwokTranslation(),
+                        Toast.LENGTH_SHORT).show();
 
                 // Release the media player if it currently exists because we are
                 // about to play a different sound file
