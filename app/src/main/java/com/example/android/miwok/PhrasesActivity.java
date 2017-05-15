@@ -15,11 +15,9 @@
  */
 package com.example.android.miwok;
 
-import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -78,7 +76,7 @@ public class PhrasesActivity extends AppCompatActivity {
         // create a setup to request audio focus
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
-        // creating word list 
+        // creating word list
         final ArrayList<Word> words = new ArrayList<>();
         words.add(new Word("Where are you going?","minto wuksus",R.raw.phrase_where_are_you_going));
         words.add(new Word("What is your name?","tinnә oyaase'nә",R.raw.phrase_what_is_your_name));
