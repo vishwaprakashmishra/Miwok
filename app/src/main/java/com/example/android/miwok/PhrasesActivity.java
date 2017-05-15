@@ -16,6 +16,7 @@
 package com.example.android.miwok;
 
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -75,9 +76,19 @@ public class PhrasesActivity extends AppCompatActivity {
                 Toast.makeText(PhrasesActivity.this, words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
                 // releasing the previous media attached
                 releaseMediaPlayer();
-                // playing the media
-                mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, words.get(position).getSoundResourceId());
+                // Get the {@link Word} object at the given position the user clicked on
+                Word word = words.get(position);
+
+                // Create and setup the {@link MediaPlayer} for the audio resource associated
+                // with the current word
+                mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, word.getSoundResourceId());
+
+                // Start the audio file
                 mMediaPlayer.start();
+
+                // Setup a listener on the media player, so that we can stop and release the
+                // media player once the sound has finished playing.
+                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
     }

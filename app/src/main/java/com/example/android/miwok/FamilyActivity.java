@@ -43,8 +43,6 @@ public class FamilyActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("FamilyActivity", "onStop");
-        mMediaPlayer.stop();
         releaseMediaPlayer();
     }
 
