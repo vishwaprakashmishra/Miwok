@@ -15,6 +15,9 @@
  */
 package com.example.android.miwok;
 
+import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +31,28 @@ import java.util.ArrayList;
 
 public class PhrasesActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
+    private AudioManager mAudioManager;
+
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener
+            = new AudioManager.OnAudioFocusChangeListener(){
+        @Override
+        public void onAudioFocusChange(int focusChange){
+            if(focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                    focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK){
+                // treat both case  as same because our sound file is small
+                mMediaPlayer.pause();
+                mMediaPlayer.seekTo(0);
+            } else if (focusChange  == AudioManager.AUDIOFOCUS_GAIN) {
+                // The AUDIOFOCUS_GAIN case means we have regained focus and can
+                // resume playback
+                mMediaPlayer.start();
+            } else if ( focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                // the AUDIOFOCUS_LOSS case means we've lost audio focus and
+                // stop playback and clean up resources
+                releaseMediaPlayer();
+            }
+        }
+    };
 
     private MediaPlayer.OnCompletionListener mCompletionListener
             = new MediaPlayer.OnCompletionListener(){
@@ -48,9 +73,12 @@ public class PhrasesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.word_list);
 
+        // create a setup to request audio focus
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        // creating word list 
         final ArrayList<Word> words = new ArrayList<>();
         words.add(new Word("Where are you going?","minto wuksus",R.raw.phrase_where_are_you_going));
         words.add(new Word("What is your name?","tinnә oyaase'nә",R.raw.phrase_what_is_your_name));
@@ -78,17 +106,25 @@ public class PhrasesActivity extends AppCompatActivity {
                 releaseMediaPlayer();
                 // Get the {@link Word} object at the given position the user clicked on
                 Word word = words.get(position);
+                int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                if ( result  == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                    // we have audio focus
 
-                // Create and setup the {@link MediaPlayer} for the audio resource associated
-                // with the current word
-                mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, word.getSoundResourceId());
+                    // Create and setu the {@link MediaPlayer} for the audio
+                    // resource associated
+                    // with the current word
+                    mMediaPlayer = MediaPlayer.create(PhrasesActivity.this,
+                            word.getSoundResourceId());
+                    // start the audio file
+                    mMediaPlayer.start();
+                    // setup a listener on the media player, so that we can
+                    // stop and release the media player once the sound has finished
+                    // playing
+                    mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
 
-                // Start the audio file
-                mMediaPlayer.start();
-
-                // Setup a listener on the media player, so that we can stop and release the
-                // media player once the sound has finished playing.
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
     }

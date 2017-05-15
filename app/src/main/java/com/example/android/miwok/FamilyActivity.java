@@ -15,11 +15,11 @@
  */
 package com.example.android.miwok;
 
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -74,6 +74,8 @@ public class FamilyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.word_list);
+        // create a setup to request audio focus
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<>();
         words.add(new Word("father","dpd", R.drawable.family_father, R.raw.family_father));
@@ -99,12 +101,25 @@ public class FamilyActivity extends AppCompatActivity {
                 Toast.makeText(FamilyActivity.this, words.get(position).getMiwokTranslation() , Toast.LENGTH_SHORT).show();
                 // releasing the previous media attached
                 releaseMediaPlayer();
+                Word word = words.get(position);
+                int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                if ( result  == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                    // we have audio focus
 
-                mMediaPlayer = MediaPlayer.create(FamilyActivity.this, words.get(position).getSoundResourceId());
-                mMediaPlayer.start();
-                // setup a listener on the media player, so that we can stop and
-                // release the media player once the sound has finished plaing.
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                    // Create and setu the {@link MediaPlayer} for the audio
+                    // resource associated
+                    // with the current word
+                    mMediaPlayer = MediaPlayer.create(FamilyActivity.this,
+                            word.getSoundResourceId());
+                    // start the audio file
+                    mMediaPlayer.start();
+                    // setup a listener on the media player, so that we can
+                    // stop and release the media player once the sound has finished
+                    // playing
+                    mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
             }
         });
 
