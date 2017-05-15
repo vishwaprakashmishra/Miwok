@@ -11,8 +11,7 @@
         android:layout_width="@dimen/list_item_height"
         android:layout_height="@dimen/list_item_height"
         android:id="@+id/image"/>
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/category_numbers"
@@ -25,8 +24,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@color/category_numbers"
-            android:id="@+id/text_container"
-            android:paddingStart="16dp">
+            android:id="@+id/text_container">
             <TextView
                 android:id="@+id/miwok_text_view"
                 android:layout_width="wrap_content"
@@ -36,7 +34,8 @@
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-                tools:text="lutti" />
+                tools:text="lutti"
+                android:paddingStart="16dp"/>
 
             <TextView
                 android:id="@+id/default_text_view"
@@ -46,13 +45,16 @@
                 android:gravity="top"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/white"
-                tools:text="one" />
+                tools:text="one"
+                android:paddingStart="16dp"/>
         </LinearLayout>
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_play_arrow_white_24dp"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
